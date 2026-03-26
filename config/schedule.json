@@ -1,0 +1,188 @@
+{
+  "_comment": "Claude Auto SEO + Digital Marketing \u2014 Schedule Configuration. Set enabled:true to activate each platform.",
+  "wordpress_internal": {
+    "enabled": true,
+    "frequency": "daily",
+    "time": "09:00",
+    "posts_per_run": 1,
+    "auto_publish": false,
+    "review_required": true,
+    "min_seo_score": 75,
+    "generate_banner_image": true
+  },
+  "external_blogs": {
+    "medium": {
+      "enabled": false,
+      "frequency": "weekly",
+      "day": "wednesday",
+      "canonical_to_wordpress": true
+    },
+    "reddit": {
+      "enabled": false,
+      "frequency": "weekly",
+      "day": "thursday",
+      "subreddits": [
+        "r/SEO",
+        "r/Entrepreneur"
+      ]
+    },
+    "linkedin_articles": {
+      "enabled": false,
+      "frequency": "weekly",
+      "day": "tuesday"
+    },
+    "devto": {
+      "enabled": false,
+      "frequency": "weekly"
+    },
+    "hashnode": {
+      "enabled": false,
+      "frequency": "weekly"
+    }
+  },
+  "social_media": {
+    "instagram": {
+      "enabled": false,
+      "posts_per_day": 1,
+      "posting_windows": [
+        {
+          "from": 8,
+          "to": 10
+        },
+        {
+          "from": 18,
+          "to": 20
+        }
+      ],
+      "generate_image": true,
+      "image_size": "instagram",
+      "hashtag_count": 25
+    },
+    "facebook": {
+      "enabled": false,
+      "posts_per_day": 1,
+      "posting_windows": [
+        {
+          "from": 9,
+          "to": 11
+        },
+        {
+          "from": 14,
+          "to": 16
+        }
+      ],
+      "generate_image": true,
+      "image_size": "facebook",
+      "hashtag_count": 5
+    },
+    "linkedin": {
+      "enabled": false,
+      "posts_per_day": 1,
+      "posting_windows": [
+        {
+          "from": 8,
+          "to": 9
+        },
+        {
+          "from": 12,
+          "to": 13
+        }
+      ],
+      "generate_image": true,
+      "image_size": "linkedin",
+      "hashtag_count": 5
+    },
+    "twitter": {
+      "enabled": false,
+      "posts_per_day": 3,
+      "posting_windows": [
+        {
+          "from": 7,
+          "to": 9
+        },
+        {
+          "from": 12,
+          "to": 13
+        },
+        {
+          "from": 17,
+          "to": 19
+        }
+      ],
+      "generate_image": true,
+      "image_size": "twitter",
+      "hashtag_count": 2
+    },
+    "pinterest": {
+      "enabled": false,
+      "pins_per_day": 2,
+      "posting_windows": [
+        {
+          "from": 14,
+          "to": 16
+        },
+        {
+          "from": 20,
+          "to": 22
+        }
+      ],
+      "generate_image": true,
+      "image_size": "pinterest"
+    },
+    "gmb": {
+      "enabled": false,
+      "frequency": "every_3_days",
+      "posts_per_session": 1,
+      "random_timing": true,
+      "posting_windows": [
+        {
+          "from": 9,
+          "to": 11
+        },
+        {
+          "from": 14,
+          "to": 16
+        }
+      ],
+      "generate_image": true,
+      "image_size": "gmb"
+    },
+    "tiktok": {
+      "enabled": false,
+      "posts_per_day": 1
+    }
+  },
+  "image_generation": {
+    "enabled": true,
+    "add_logo": true,
+    "add_title": true,
+    "background_source": "unsplash"
+  },
+  "quality_gates": {
+    "min_word_count": 2000,
+    "min_seo_score": 75,
+    "require_internal_links": true,
+    "min_internal_links": 3
+  },
+  "notifications": {
+    "daily_report_email": {
+      "enabled": true,
+      "time": "20:00",
+      "timezone": "America/New_York",
+      "_note": "Report emailed every day at 8 PM. Set SMTP_USER, SMTP_PASS, NOTIFICATION_EMAIL in .env"
+    },
+    "weekly_seo_digest": {
+      "enabled": true,
+      "day": "monday",
+      "time": "08:00"
+    },
+    "festival_posts": {
+      "enabled": true,
+      "time": "01:00",
+      "_note": "Festival posts at 1AM on festival days"
+    },
+    "alert_on_error": true,
+    "alert_on_ranking_drop": true,
+    "ranking_drop_threshold": 5
+  }
+}

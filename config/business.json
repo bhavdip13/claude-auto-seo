@@ -1,0 +1,97 @@
+{
+  "_comment": "Claude Auto SEO — Business & CTA Configuration",
+  "_note": "Run python3 scripts/auto_configure.py --domain yoursite.com to auto-fill this",
+
+  "business": {
+    "name": "",
+    "tagline": "",
+    "description": "",
+    "founded_year": "",
+    "type": "",
+    "_type_options": ["blog", "ecommerce", "saas", "local_business", "agency", "publisher"]
+  },
+
+  "contact": {
+    "_note": "These appear in every blog post CTA section and social media posts",
+    "website": "",
+    "email": "",
+    "phone": "",
+    "whatsapp": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "country": "",
+      "postal_code": ""
+    },
+    "google_maps_url": ""
+  },
+
+  "cta": {
+    "_note": "Call-to-action settings for blog posts and social media",
+    "primary_action": "Visit Our Website",
+    "primary_url": "",
+    "primary_button_text": "Get Started Free",
+    "secondary_action": "Contact Us",
+    "secondary_url": "",
+    "soft_cta": "Learn More",
+
+    "blog_post_cta": {
+      "enabled": true,
+      "heading": "Ready to Get Started?",
+      "body": "Contact us today and let's help you achieve your goals.",
+      "show_email": true,
+      "show_phone": true,
+      "show_address": false,
+      "show_website": true,
+      "button_text": "Get In Touch",
+      "button_url": ""
+    },
+
+    "social_media_cta": {
+      "enabled": true,
+      "instagram": "🔗 Link in bio | 📧 {email}",
+      "facebook": "👉 Visit: {website} | 📧 {email} | 📞 {phone}",
+      "linkedin": "Learn more at {website} | Contact: {email}",
+      "twitter": "🔗 {website}",
+      "gmb": "Visit us at {website} | Call: {phone} | Email: {email}"
+    },
+
+    "banner_image_cta": {
+      "enabled": true,
+      "show_website": true,
+      "show_phone": false,
+      "show_email": false,
+      "position": "bottom_bar",
+      "_position_options": ["bottom_bar", "top_bar", "corner", "none"]
+    }
+  },
+
+  "social_profiles": {
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": "",
+    "pinterest": "",
+    "youtube": "",
+    "tiktok": "",
+    "reddit": ""
+  },
+
+  "notifications": {
+    "daily_report_email": {
+      "enabled": true,
+      "time": "20:00",
+      "timezone": "America/New_York",
+      "_note": "Set SMTP_USER, SMTP_PASS, NOTIFICATION_EMAIL in .env to enable"
+    },
+    "weekly_digest_email": {
+      "enabled": true,
+      "day": "monday",
+      "time": "08:00"
+    },
+    "alert_on_error": true,
+    "alert_on_ranking_drop": true,
+    "ranking_drop_threshold": 5
+  }
+}

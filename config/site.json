@@ -1,0 +1,26 @@
+{
+  "_generated_by": "Claude Auto SEO auto-configurator",
+  "_generated_at": "2026-03-16T21:36:37.336649",
+  "site": {
+    "url": "your domain",
+    "name": "your domain/website name",
+    "description": "website description",
+    "type": "website type (e.g., blog, ecommerce, portfolio)",
+    "niche": "website niche (e.g., technology, fashion, health)",
+    "locale": "en-US"
+  },
+  "cms": {
+    "platform": "your platform (e.g., WordPress, Shopify, Wix)",
+    "default_post_status": "draft"
+  },
+  "seo": {
+    "title_separator": " \u2014 ",
+    "brand_in_title": true,
+    "default_content_length": 2500,
+    "target_reading_level": "grade_8_10"
+  },
+  "tracking": {
+    "track_rankings": true,
+    "ranking_check_frequency": "weekly"
+  }
+}

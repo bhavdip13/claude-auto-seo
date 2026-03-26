@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Auto SEO — Setup Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   ROOT TOKENS
+═══════════════════════════════════════════════════ */
+:root {
+  --ink:      #0c0f1a;
+  --paper:    #f7f5f0;
+  --cream:    #ede9e1;
+  --card:     #ffffff;
+  --red:      #d63031;
+  --red-soft: #fff1f0;
+  --red-dim:  rgba(214,48,49,0.12);
+  --green:    #00b894;
+  --green-soft:#f0faf7;
+  --blue:     #0984e3;
+  --blue-soft:#f0f7ff;
+  --amber:    #e17055;
+  --amber-soft:#fff8f5;
+  --purple:   #6c5ce7;
+  --purple-soft:#f5f3ff;
+  --border:   #e2ddd5;
+  --muted:    #8a8070;
+  --code-bg:  #1e1e2e;
+  --code-fg:  #cdd6f4;
+  --code-green:#a6e3a1;
+  --code-blue:#89dceb;
+  --code-amber:#f9e2af;
+  --code-red:  #f38ba8;
+  --code-gray: #585b70;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow:    0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.10), 0 8px 24px rgba(0,0,0,.06);
+  --radius:    12px;
+  --radius-lg: 20px;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  min-height:100vh;
+}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+code,pre{font-family:'DM Mono',monospace}
+
+/* ═══════════════════════════════════════════════════
+   GRAIN TEXTURE OVERLAY
+═══════════════════════════════════════════════════ */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:9999;
+  opacity:0.4;
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+.hero{
+  background: var(--ink);
+  padding: 80px 40px 70px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(108,92,231,.25) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 30%, rgba(214,48,49,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 60% 80%, rgba(9,132,227,.15) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;max-width:800px;margin:0 auto}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:100px;
+  padding:6px 18px;
+  font-size:.78rem;
+  font-weight:600;
+  color:rgba(255,255,255,.6);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:28px;
+}
+.hero-eyebrow span{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(2.4rem,6vw,4.2rem);
+  font-weight:800;
+  color:#fff;
+  line-height:1.12;
+  letter-spacing:-.02em;
+  margin-bottom:20px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#fd79a8,#e17055,#fdcb6e);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero .sub{
+  font-size:1.1rem;
+  color:rgba(255,255,255,.55);
+  max-width:540px;
+  margin:0 auto 36px;
+  line-height:1.6;
+}
+.hero-pills{
+  display:flex;flex-wrap:wrap;gap:10px;
+  justify-content:center;
+  margin-bottom:44px;
+}
+.pill{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:100px;
+  padding:6px 16px;
+  font-size:.82rem;
+  color:rgba(255,255,255,.7);
+  font-weight:500;
+}
+.pill.green{background:rgba(0,184,148,.15);border-color:rgba(0,184,148,.3);color:#55efc4}
+.pill.red{background:rgba(214,48,49,.15);border-color:rgba(214,48,49,.3);color:#ff7675}
+.hero-steps{
+  display:flex;align-items:center;gap:0;
+  justify-content:center;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:18px 32px;
+  max-width:680px;
+  margin:0 auto;
+  flex-wrap:wrap;
+  gap:4px;
+}
+.hs{text-align:center;padding:4px 16px}
+.hs .hs-num{font-size:.75rem;color:rgba(255,255,255,.35);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.hs .hs-label{font-size:.88rem;color:rgba(255,255,255,.7);font-weight:500}
+.hs-div{width:1px;height:32px;background:rgba(255,255,255,.1)}
+
+/* ═══════════════════════════════════════════════════
+   STICKY TOP NAV
+═══════════════════════════════════════════════════ */
+.topnav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(247,245,240,.94);
+  backdrop-filter:blur(16px) saturate(1.4);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 1px 0 rgba(0,0,0,.04);
+}
+.topnav-inner{
+  max-width:960px;margin:0 auto;
+  display:flex;overflow-x:auto;
+  scrollbar-width:none;
+  padding:0 24px;
+}
+.topnav-inner::-webkit-scrollbar{display:none}
+.topnav-inner a{
+  color:var(--muted);
+  text-decoration:none;
+  padding:14px 16px;
+  font-size:.82rem;
+  font-weight:600;
+  white-space:nowrap;
+  border-bottom:2px solid transparent;
+  transition:all .18s;
+  letter-spacing:.01em;
+}
+.topnav-inner a:hover{color:var(--ink);border-bottom-color:var(--red)}
+
+/* ═══════════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════════ */
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+
+/* ═══════════════════════════════════════════════════
+   SECTION HEADERS
+═══════════════════════════════════════════════════ */
+.section{padding:64px 0 32px;scroll-margin-top:56px}
+.section-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--red);
+  margin-bottom:10px;
+}
+.section-tag::before{content:'';width:20px;height:2px;background:var(--red);border-radius:2px}
+.section h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.7rem,4vw,2.5rem);
+  font-weight:700;color:var(--ink);
+  line-height:1.2;letter-spacing:-.02em;
+  margin-bottom:10px;
+}
+.section-desc{font-size:1rem;color:var(--muted);max-width:520px;margin-bottom:36px}
+
+/* ═══════════════════════════════════════════════════
+   WHAT YOU GET GRID
+═══════════════════════════════════════════════════ */
+.features-banner{
+  background:var(--ink);
+  border-radius:var(--radius-lg);
+  padding:40px;
+  margin-bottom:40px;
+}
+.features-banner h3{
+  color:#fff;font-size:1.1rem;font-weight:600;margin-bottom:20px;
+  padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.1);
+}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.feat-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:12px 14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;
+}
+.feat-item .fi-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.feat-item .fi-text{font-size:.85rem;color:rgba(255,255,255,.72);line-height:1.5}
+.feat-item .fi-text strong{color:#fff;font-weight:600}
+
+/* ═══════════════════════════════════════════════════
+   PHASE BLOCK
+═══════════════════════════════════════════════════ */
+.phase{margin-bottom:60px;scroll-margin-top:56px}
+.phase-header{
+  display:flex;align-items:center;gap:18px;
+  margin-bottom:28px;
+  padding-bottom:20px;
+  border-bottom:2px solid var(--border);
+}
+.phase-badge{
+  width:54px;height:54px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;
+}
+.ph-red{background:linear-gradient(135deg,#ff7675,var(--red))}
+.ph-blue{background:linear-gradient(135deg,#74b9ff,var(--blue))}
+.ph-green{background:linear-gradient(135deg,#55efc4,var(--green))}
+.ph-amber{background:linear-gradient(135deg,#fab1a0,var(--amber))}
+.ph-purple{background:linear-gradient(135deg,#a29bfe,var(--purple))}
+.ph-teal{background:linear-gradient(135deg,#81ecec,#00cec9)}
+
+.phase-meta h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:700;color:var(--ink);
+  margin-bottom:3px;letter-spacing:-.01em;
+}
+.phase-meta p{font-size:.88rem;color:var(--muted)}
+.phase-time{
+  margin-left:auto;flex-shrink:0;
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:5px 14px;
+  font-size:.78rem;font-weight:600;color:var(--muted);
+  white-space:nowrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   STEP CARDS
+═══════════════════════════════════════════════════ */
+.step{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  margin-bottom:16px;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  transition:box-shadow .2s,border-color .2s;
+}
+.step:hover{box-shadow:var(--shadow);border-color:#d0c8be}
+.step-head{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:20px 24px;
+}
+.snum{
+  width:32px;height:32px;border-radius:9px;
+  background:var(--red-dim);
+  color:var(--red);
+  font-size:.82rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+  font-family:'DM Mono',monospace;
+}
+.step-title h3{font-size:.97rem;font-weight:600;color:var(--ink);margin-bottom:3px}
+.step-title p{font-size:.85rem;color:var(--muted);line-height:1.5}
+.step-tag{margin-left:auto;flex-shrink:0}
+.tag{
+  display:inline-block;border-radius:100px;
+  padding:3px 11px;font-size:.73rem;font-weight:700;
+  letter-spacing:.02em;
+}
+.tag-req{background:var(--red-soft);color:var(--red);border:1px solid rgba(214,48,49,.2)}
+.tag-opt{background:var(--green-soft);color:#00a87c;border:1px solid rgba(0,184,148,.2)}
+.tag-test{background:var(--blue-soft);color:var(--blue);border:1px solid rgba(9,132,227,.2)}
+.tag-warn{background:var(--amber-soft);color:#c0392b;border:1px solid rgba(225,112,85,.25)}
+
+.step-body{padding:0 24px 24px 72px}
+
+/* ═══════════════════════════════════════════════════
+   CODE BLOCKS
+═══════════════════════════════════════════════════ */
+.code-block{margin:14px 0}
+.cb-label{
+  font-size:.72rem;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:6px;display:flex;align-items:center;gap:6px;
+}
+.cb-label::before{content:'▸';color:var(--red);font-size:.8rem}
+.cb-wrap{
+  position:relative;
+  background:var(--code-bg);
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.06);
+  overflow:hidden;
+}
+.cb-wrap pre{
+  padding:18px 20px;
+  overflow-x:auto;
+  font-size:.82rem;
+  line-height:1.75;
+}
+.cb-wrap code{color:var(--code-fg)}
+.co{color:var(--code-gray)}  /* comment */
+.ck{color:var(--code-blue)}  /* command/keyword */
+.cv{color:var(--code-green)} /* value/string */
+.cp{color:var(--code-amber)} /* path/highlight */
+.cr{color:var(--code-red)}   /* red/danger */
+.copy-btn{
+  position:absolute;top:10px;right:10px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.5);
+  padding:4px 12px;
+  border-radius:6px;font-size:.72rem;font-weight:600;
+  cursor:pointer;
+  transition:all .18s;
+  font-family:'DM Sans',sans-serif;
+}
+.copy-btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+.copy-btn.copied{background:#00b894;border-color:#00b894;color:#fff}
+
+/* ═══════════════════════════════════════════════════
+   ALERT BOXES
+═══════════════════════════════════════════════════ */
+.alert{
+  display:flex;gap:12px;align-items:flex-start;
+  border-radius:10px;padding:14px 18px;
+  margin:12px 0;font-size:.88rem;line-height:1.6;
+}
+.alert-icon{font-size:1.05rem;flex-shrink:0;margin-top:.1em}
+.al-info{background:var(--blue-soft);border:1px solid rgba(9,132,227,.2);color:#0070c0}
+.al-success{background:var(--green-soft);border:1px solid rgba(0,184,148,.25);color:#007a5e}
+.al-warn{background:var(--amber-soft);border:1px solid rgba(225,112,85,.25);color:#9c3a1e}
+.al-danger{background:var(--red-soft);border:1px solid rgba(214,48,49,.2);color:var(--red)}
+.alert a{color:inherit;font-weight:600}
+
+/* ═══════════════════════════════════════════════════
+   VERIFY BOX
+═══════════════════════════════════════════════════ */
+.verify{
+  background:var(--green-soft);
+  border:1px solid rgba(0,184,148,.3);
+  border-left:4px solid var(--green);
+  border-radius:8px;
+  padding:14px 18px;
+  margin:12px 0;
+}
+.verify-title{color:#007a5e;font-size:.83rem;font-weight:700;margin-bottom:8px}
+.verify ul{list-style:none;padding:0}
+.verify ul li{color:#007a5e;font-size:.82rem;padding:2px 0;display:flex;gap:8px}
+.verify ul li::before{content:"✓";font-weight:700;flex-shrink:0}
+
+/* ═══════════════════════════════════════════════════
+   INFO GRID
+═══════════════════════════════════════════════════ */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:14px 0}
+.info-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow-sm);
+}
+.info-card .ic-head{font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.info-card p{font-size:.82rem;color:var(--muted);margin-bottom:6px;line-height:1.5}
+.info-card a{font-size:.8rem;color:var(--blue);font-weight:500}
+
+/* ═══════════════════════════════════════════════════
+   PLATFORM CHIPS
+═══════════════════════════════════════════════════ */
+.plat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:10px;margin:14px 0}
+.plat-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:14px 16px;
+  box-shadow:var(--shadow-sm);
+}
+.plat-name{font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.plat-keys{display:flex;flex-direction:column;gap:3px;margin-bottom:7px}
+.plat-keys code{
+  background:var(--cream);color:var(--red);
+  padding:2px 7px;border-radius:5px;font-size:.72rem;
+  border:1px solid var(--border);display:inline-block;
+}
+.plat-card a{font-size:.76rem;color:var(--blue);font-weight:500}
+
+/* ═══════════════════════════════════════════════════
+   SCHEDULE TABLE
+═══════════════════════════════════════════════════ */
+.sched-table{
+  width:100%;border-collapse:collapse;
+  margin:16px 0;font-size:.88rem;
+  background:var(--card);border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+}
+.sched-table th{
+  background:var(--ink);color:rgba(255,255,255,.7);
+  padding:12px 16px;text-align:left;
+  font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.sched-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink)}
+.sched-table tr:last-child td{border-bottom:none}
+.sched-table tr:hover td{background:var(--cream)}
+.sched-time{font-family:'DM Mono',monospace;font-size:.78rem;font-weight:700;color:var(--red);white-space:nowrap}
+.sched-script code{background:var(--cream);color:var(--muted);padding:2px 7px;border-radius:4px;font-size:.78rem;border:1px solid var(--border)}
+
+/* ═══════════════════════════════════════════════════
+   QUICK REF GRID
+═══════════════════════════════════════════════════ */
+.qref-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:14px 0}
+.qref-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px 20px;
+  box-shadow:var(--shadow-sm);
+}
+.qref-card h4{
+  font-size:.85rem;font-weight:700;color:var(--ink);
+  margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.qref-card p{
+  font-size:.8rem;color:var(--muted);
+  margin-bottom:5px;display:flex;align-items:baseline;gap:6px;
+}
+.qref-card code{
+  background:var(--cream);color:var(--ink);
+  padding:2px 7px;border-radius:4px;font-size:.75rem;
+  border:1px solid var(--border);
+}
+
+/* ═══════════════════════════════════════════════════
+   EMAIL PREVIEW
+═══════════════════════════════════════════════════ */
+.email-preview{
+  background:var(--code-bg);
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.06);
+  margin:14px 0;
+}
+.ep-titlebar{
+  background:rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:12px 16px;
+  display:flex;align-items:center;gap:8px;
+}
+.ep-dots{display:flex;gap:6px}
+.ep-dot{width:11px;height:11px;border-radius:50%}
+.ep-subj{font-size:.8rem;color:rgba(255,255,255,.4);margin-left:8px;font-family:'DM Mono',monospace}
+.ep-body{padding:20px 24px;font-family:'DM Mono',monospace;font-size:.8rem;line-height:2;color:rgba(255,255,255,.8)}
+.ep-green{color:#a6e3a1}
+.ep-blue{color:#89dceb}
+.ep-amber{color:#f9e2af}
+.ep-red{color:#f38ba8}
+.ep-dim{color:#585b70}
+
+/* ═══════════════════════════════════════════════════
+   DIVIDER
+═══════════════════════════════════════════════════ */
+.divider{border:none;border-top:2px solid var(--border);margin:64px 0}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+footer{
+  background:var(--ink);
+  padding:44px 40px;
+  text-align:center;
+}
+footer p{color:rgba(255,255,255,.35);font-size:.85rem}
+footer strong{color:rgba(255,255,255,.6)}
+
+/* ═══════════════════════════════════════════════════
+   SCROLL TO TOP
+═══════════════════════════════════════════════════ */
+.back-top{
+  position:fixed;bottom:28px;right:28px;
+  background:var(--ink);color:#fff;
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;text-decoration:none;
+  box-shadow:var(--shadow);z-index:300;
+  transition:transform .2s,background .2s;
+  border:2px solid rgba(255,255,255,.1);
+}
+.back-top:hover{background:var(--red);transform:translateY(-3px);text-decoration:none}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media(max-width:680px){
+  .hero{padding:52px 20px 48px}
+  .hero h1{font-size:2rem}
+  .wrap{padding:0 16px}
+  .step-body{padding:0 16px 20px}
+  .hero-steps{gap:0;padding:14px 16px}
+  .hs-div{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ HERO ══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span></span> Live System · Fully Automated
+    </div>
+    <h1>Claude Auto <em>SEO</em><br>Setup Guide</h1>
+    <p class="sub">A plain-English, step-by-step walkthrough for normal computer users — no coding experience needed. Follow each step and your website will be fully automated in about 20 minutes.</p>
+    <div class="hero-pills">
+      <span class="pill green">✓ Free to Use</span>
+      <span class="pill">🌐 WordPress Required</span>
+      <span class="pill">🐍 Python 3.10+</span>
+      <span class="pill">⏱ ~20 Minutes Setup</span>
+      <span class="pill red">No 24/7 Laptop Needed</span>
+    </div>
+    <div class="hero-steps">
+      <div class="hs"><div class="hs-num">Phase 1</div><div class="hs-label">Install</div></div>
+      <div class="hs-div"></div>
+      <div class="hs"><div class="hs-num">Phase 2</div><div class="hs-label">Configure</div></div>
+      <div class="hs-div"></div>
+      <div class="hs"><div class="hs-num">Phase 3</div><div class="hs-label">Credentials</div></div>
+      <div class="hs-div"></div>
+      <div class="hs"><div class="hs-num">Phase 4</div><div class="hs-label">Test</div></div>
+      <div class="hs-div"></div>
+      <div class="hs"><div class="hs-num">Phase 5</div><div class="hs-label">Automate</div></div>
+      <div class="hs-div"></div>
+      <div class="hs"><div class="hs-num">Phase 6</div><div class="hs-label">Monitor</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ STICKY NAV ══ -->
+<div class="topnav">
+  <div class="topnav-inner">
+    <a href="#what-you-get">What You Get</a>
+    <a href="#before-start">Before Starting</a>
+    <a href="#phase1">Phase 1 · Install</a>
+    <a href="#phase2">Phase 2 · Configure</a>
+    <a href="#phase3">Phase 3 · Credentials</a>
+    <a href="#phase4">Phase 4 · Logo</a>
+    <a href="#phase5">Phase 5 · Testing</a>
+    <a href="#phase6">Phase 6 · WordPress SEO</a>
+    <a href="#phase7">Phase 7 · First Blog</a>
+    <a href="#phase8">Phase 8 · Social Media</a>
+    <a href="#phase9">Phase 9 · Full Automation</a>
+    <a href="#phase10">Phase 10 · Free Hosting</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#commands">Commands</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MAIN ══ -->
+<div class="wrap">
+
+<!-- ── WHAT YOU GET ─────────────────────────────────── -->
+<div class="section" id="what-you-get">
+  <div class="section-tag">Overview</div>
+  <h2>What This Does For You Every Day</h2>
+  <p class="section-desc">Once set up, everything below happens automatically — you just check your email at 8 PM to see what was done.</p>
+
+  <div class="features-banner">
+    <h3>✅ Daily Automation — Zero Work After Setup</h3>
+    <div class="feat-grid">
+      <div class="feat-item"><div class="fi-icon">✍️</div><div class="fi-text"><strong>Daily Blog Post</strong> written at 9 AM from your keyword list, published to WordPress as draft</div></div>
+      <div class="feat-item"><div class="fi-icon">🖼️</div><div class="fi-text"><strong>Banner Images</strong> auto-generated with your logo for every post — all platform sizes</div></div>
+      <div class="feat-item"><div class="fi-icon">📸</div><div class="fi-text"><strong>Instagram</strong> post with caption, 25 hashtags, and banner — 1×/day</div></div>
+      <div class="feat-item"><div class="fi-icon">📘</div><div class="fi-text"><strong>Facebook</strong> post with full content and banner — 1×/day</div></div>
+      <div class="feat-item"><div class="fi-icon">💼</div><div class="fi-text"><strong>LinkedIn</strong> professional post — 1×/day</div></div>
+      <div class="feat-item"><div class="fi-icon">🐦</div><div class="fi-text"><strong>Twitter / X</strong> posts — 3×/day at random times</div></div>
+      <div class="feat-item"><div class="fi-icon">📍</div><div class="fi-text"><strong>Google My Business</strong> post every 3 days with website link</div></div>
+      <div class="feat-item"><div class="fi-icon">🎊</div><div class="fi-text"><strong>Festival Posts</strong> at 1 AM — Diwali, Christmas, 4th July, Eid, Africa Day + 55 more</div></div>
+      <div class="feat-item"><div class="fi-icon">🌐</div><div class="fi-text"><strong>External Blogs</strong> — Medium, Dev.to, LinkedIn Articles, Reddit, Hashnode + 35 more</div></div>
+      <div class="feat-item"><div class="fi-icon">🔧</div><div class="fi-text"><strong>WordPress SEO Fixes</strong> — meta titles, descriptions, alt text, schema — all auto-fixed</div></div>
+      <div class="feat-item"><div class="fi-icon">📈</div><div class="fi-text"><strong>Keyword Rankings</strong> checked weekly — page 2-6 keywords pushed toward page 1</div></div>
+      <div class="feat-item"><div class="fi-icon">📊</div><div class="fi-text"><strong>Daily Email Report</strong> at 8 PM showing every action taken with URLs to verify</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BEFORE YOU START ─────────────────────────────── -->
+<div class="phase" id="before-start">
+  <div class="phase-header">
+    <div class="phase-badge ph-red">📋</div>
+    <div class="phase-meta">
+      <h2>Before You Start</h2>
+      <p>Gather these things. Takes 5 minutes.</p>
+    </div>
+    <div class="phase-time">⏱ 5 min read</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">A</div>
+      <div class="step-title">
+        <h3>You need these 4 things ready</h3>
+        <p>Have these on hand before starting. You will need them during setup.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="ic-head">🌐 WordPress Website</div>
+          <p>You need your WordPress admin username and password. Your site must use HTTPS (most do).</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-head">🤖 Anthropic Account</div>
+          <p>Free account for AI blog writing. Sign up and get an API key.</p>
+          <a href="https://console.anthropic.com" target="_blank">→ console.anthropic.com</a>
+        </div>
+        <div class="info-card">
+          <div class="ic-head">📧 Gmail Address</div>
+          <p>For sending yourself daily reports at 8 PM. Any Gmail account works.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-head">🖼️ Your Logo PNG File</div>
+          <p>Your website logo as a .png file with transparent background. Goes on every banner image.</p>
+        </div>
+      </div>
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>Social media (Facebook, Instagram, etc.) credentials are <strong>optional</strong> — you can add them later after the basic system is working.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">B</div>
+      <div class="step-title">
+        <h3>How to open a Terminal (Command Window)</h3>
+        <p>You will type commands here. Don't worry — every command is shown exactly, just copy and paste.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="ic-head">🪟 Windows</div>
+          <p>Press the <strong>Windows key + R</strong>, type <code style="background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">cmd</code>, press Enter. A black window opens — that is your terminal.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-head">🍎 Mac</div>
+          <p>Press <strong>Cmd + Space</strong>, type <strong>Terminal</strong>, press Enter. Or go to Applications → Utilities → Terminal.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-head">🐧 Linux</div>
+          <p>Press <strong>Ctrl + Alt + T</strong>. Terminal opens.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 1: INSTALL ─────────────────────────────── -->
+<div class="phase" id="phase1">
+  <div class="phase-header">
+    <div class="phase-badge ph-blue">📦</div>
+    <div class="phase-meta">
+      <h2>Phase 1 — Extract &amp; Install</h2>
+      <p>Unzip the file and install the required software</p>
+    </div>
+    <div class="phase-time">⏱ 5 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">1</div>
+      <div class="step-title">
+        <h3>Extract the ZIP File</h3>
+        <p>Right-click the downloaded <strong>claude-auto-seo.zip</strong> file and extract it to a folder you can find easily.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="alert al-info"><span class="alert-icon">💡</span><div><strong>Windows:</strong> Right-click the ZIP → "Extract All" → choose <code style="background:rgba(255,255,255,.5);padding:1px 5px;border-radius:3px">C:\Projects\claude-auto-seo</code> → click Extract.<br><strong>Mac:</strong> Double-click the ZIP file — it extracts automatically next to it.<br><strong>Linux:</strong> Right-click → "Extract Here".</div></div>
+      <div class="verify">
+        <div class="verify-title">After extracting, open the folder and check you can see these files:</div>
+        <ul>
+          <li>README.md (documentation file)</li>
+          <li>install.sh (installer for Mac/Linux)</li>
+          <li>install.ps1 (installer for Windows)</li>
+          <li>scripts/ (folder with all the automation)</li>
+          <li>config/ (folder for your settings)</li>
+          <li>.env.example (template for credentials)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">2</div>
+      <div class="step-title">
+        <h3>Check if Python is Installed</h3>
+        <p>Python is the engine that runs all automation scripts. Check if you already have it.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-req">Required</span></div>
+    </div>
+    <div class="step-body">
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:10px">Open your Terminal and type this, then press Enter:</p>
+      <div class="code-block">
+        <div class="cb-label">Type this command exactly</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 --version</code></pre>
+        </div>
+      </div>
+      <div class="alert al-success"><span class="alert-icon">✅</span><div>If you see <strong>Python 3.10</strong> or higher (like Python 3.11, 3.12) — you're good! Skip to Step 3.</div></div>
+      <div class="alert al-warn"><span class="alert-icon">⚠️</span><div>If you see "command not found" or Python 3.9 or older — download and install Python from <a href="https://python.org/downloads" target="_blank"><strong>python.org/downloads</strong></a>.<br><strong>Windows users:</strong> During install, make sure to check the box that says <strong>"Add Python to PATH"</strong> — this is very important!</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">3</div>
+      <div class="step-title">
+        <h3>Install Claude Code</h3>
+        <p>Claude Code is the AI brain that writes blog posts and runs all SEO commands. Install it like any normal program.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-req">Required</span></div>
+    </div>
+    <div class="step-body">
+      <ol style="font-size:.88rem;color:var(--muted);padding-left:20px;line-height:2.2">
+        <li>Go to <a href="https://claude.ai/claude-code" target="_blank"><strong>claude.ai/claude-code</strong></a></li>
+        <li>Download the installer for your operating system</li>
+        <li>Run the installer just like any normal program installation</li>
+        <li>After installing, test it by opening a new terminal and typing:</li>
+      </ol>
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>claude --version</code></pre>
+        </div>
+      </div>
+      <div class="verify"><div class="verify-title">You should see something like: claude 1.x.x — that means it's installed correctly.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">4</div>
+      <div class="step-title">
+        <h3>Open Terminal Inside the Project Folder</h3>
+        <p>All commands must be run from inside the claude-auto-seo folder. Here is how to do that.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>
+        <strong>Windows easiest way:</strong> Open File Explorer → go into the extracted <code style="background:rgba(255,255,255,.5);padding:1px 5px;border-radius:3px">claude-auto-seo</code> folder → click on the address bar at the top of the window → type <code style="background:rgba(255,255,255,.5);padding:1px 5px;border-radius:3px">cmd</code> → press Enter. A Command Prompt opens right in that folder.<br><br>
+        <strong>Mac/Linux:</strong> Open Terminal → type <code style="background:rgba(255,255,255,.5);padding:1px 5px;border-radius:3px">cd </code> (with a space after it) → drag the <code style="background:rgba(255,255,255,.5);padding:1px 5px;border-radius:3px">claude-auto-seo</code> folder into the Terminal window → press Enter.
+      </div></div>
+      <div class="code-block">
+        <div class="cb-label">Or type the path manually (change to match your actual folder location)</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code><span class="co"># Windows example:</span>
+cd C:\Users\<span class="cp">YourName</span>\Downloads\claude-auto-seo
+
+<span class="co"># Mac example:</span>
+cd /Users/<span class="cp">YourName</span>/Downloads/claude-auto-seo
+
+<span class="co"># Linux example:</span>
+cd /home/<span class="cp">yourname</span>/Downloads/claude-auto-seo</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">5</div>
+      <div class="step-title">
+        <h3>Run the Installer Script</h3>
+        <p>This sets up Claude Code commands and then installs all required Python libraries.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-label">Mac or Linux — run this first</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>chmod +x install.sh
+./install.sh</code></pre>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="cb-label">Windows — run this in PowerShell (search "PowerShell" in Start menu)</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\install.ps1</code></pre>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="cb-label">All operating systems — then run this to install Python packages</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>pip install -r requirements.txt</code></pre>
+        </div>
+      </div>
+      <div class="alert al-warn"><span class="alert-icon">⚠️</span><div>If <code style="background:rgba(255,255,255,.4);padding:1px 5px;border-radius:3px">pip</code> is not found, try <code style="background:rgba(255,255,255,.4);padding:1px 5px;border-radius:3px">pip3 install -r requirements.txt</code> instead.</div></div>
+      <div class="verify"><div class="verify-title">Installation is successful when you see no red ERROR lines. Yellow "WARNING" lines are normal and fine to ignore.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 2: AUTO-CONFIGURE ─────────────────────── -->
+<div class="phase" id="phase2">
+  <div class="phase-header">
+    <div class="phase-badge ph-green">🌐</div>
+    <div class="phase-meta">
+      <h2>Phase 2 — Auto-Configure from Your Domain</h2>
+      <p>One command reads your entire website and creates all settings files automatically</p>
+    </div>
+    <div class="phase-time">⏱ 2 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">6</div>
+      <div class="step-title">
+        <h3>Run the Auto-Configurator</h3>
+        <p>Give it your domain name and it does everything — scans your site, detects your business type, extracts your contact details, reads your WordPress posts, and creates all configuration files.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-req">Required</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-label">Basic version — just your domain name (always works)</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/auto_configure.py --domain <span class="cp">yoursite.com</span></code></pre>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="cb-label">Better version — include your WordPress login for richer results</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/auto_configure.py \
+  --domain <span class="cp">yoursite.com</span> \
+  --wp-user <span class="cp">your_wordpress_username</span> \
+  --wp-pass <span class="cp">"your app password"</span></code></pre>
+        </div>
+      </div>
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>Replace <strong>yoursite.com</strong> with your real domain. Examples: <code style="background:rgba(9,132,227,.1);padding:1px 6px;border-radius:4px">myblog.co.uk</code> &nbsp;or&nbsp; <code style="background:rgba(9,132,227,.1);padding:1px 6px;border-radius:4px">myshop.com</code></div></div>
+      <div class="verify">
+        <div class="verify-title">After running you will see these files auto-created:</div>
+        <ul>
+          <li>config/site.json — your site URL, niche type, business settings</li>
+          <li>config/business.json — your email, phone, social profiles (for CTAs in every post)</li>
+          <li>config/keywords.md — keyword clusters built for your industry</li>
+          <li>context/brand-voice.md — writing style guide for your brand</li>
+          <li>context/internal-links-map.md — all your WordPress pages mapped</li>
+          <li>topics/queue.txt — 30 topics loaded and ready to write</li>
+          <li>.env — credentials template pre-filled with your URL and brand colors</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">7</div>
+      <div class="step-title">
+        <h3>Review Your Keywords (Optional)</h3>
+        <p>The auto-configurator created keyword groups for your niche. You can edit, add, or remove keywords.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-opt">Optional</span></div>
+    </div>
+    <div class="step-body">
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>Open <strong>config/keywords.md</strong> in Notepad (Windows) or TextEdit (Mac). You will see keyword tables. Keywords with <code style="background:rgba(9,132,227,.1);padding:1px 5px;border-radius:3px">queue</code> in the Status column will be written automatically by the system each day. Change any status to <code style="background:rgba(9,132,227,.1);padding:1px 5px;border-radius:3px">skip</code> to skip that keyword.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 3: CREDENTIALS ────────────────────────── -->
+<div class="phase" id="phase3">
+  <div class="phase-header">
+    <div class="phase-badge ph-amber">🔑</div>
+    <div class="phase-meta">
+      <h2>Phase 3 — Add Your API Keys &amp; Passwords</h2>
+      <p>Tell the system your credentials so it can post and publish for you. All go in one file: .env</p>
+    </div>
+    <div class="phase-time">⏱ 10 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">8</div>
+      <div class="step-title">
+        <h3>Open Your .env File</h3>
+        <p>The auto-configurator already created a starter .env file. Now open it in a text editor and fill in your credentials.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-req">Required</span></div>
+    </div>
+    <div class="step-body">
+      <div class="alert al-danger"><span class="alert-icon">🔒</span><div><strong>Important:</strong> The .env file contains your passwords and API keys. Never share it with anyone, never upload it to any website, never email it. It is already added to .gitignore so it won't be accidentally shared on GitHub.</div></div>
+      <div class="alert al-info"><span class="alert-icon">💡</span><div><strong>Can't see the .env file?</strong> Files starting with a dot are hidden by default.<br><strong>Windows:</strong> In File Explorer → View menu → tick "Hidden items"<br><strong>Mac:</strong> In Finder → press Cmd+Shift+. (dot) to show hidden files</div></div>
+      <div class="code-block">
+        <div class="cb-label">Or open it directly from Terminal</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code><span class="co"># Windows:</span>
+notepad .env
+
+<span class="co"># Mac:</span>
+open -e .env
+
+<span class="co"># Linux:</span>
+nano .env</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">9</div>
+      <div class="step-title">
+        <h3>Add Your Anthropic API Key</h3>
+        <p>This is what lets the system write your daily blog posts automatically using Claude AI.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-req">Required</span></div>
+    </div>
+    <div class="step-body">
+      <ol style="font-size:.88rem;color:var(--muted);padding-left:20px;line-height:2.3">
+        <li>Go to <a href="https://console.anthropic.com/api-keys" target="_blank"><strong>console.anthropic.com/api-keys</strong></a></li>
+        <li>Sign up for a free account (or log in if you have one)</li>
+        <li>Click the <strong>"Create Key"</strong> button</li>
+        <li>Give it a name like <strong>Claude Auto SEO</strong></li>
+        <li>Copy the long key that appears — it starts with <code style="background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">sk-ant-api03-</code></li>
+        <li>Paste it into your .env file replacing <code style="background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">your_key_here</code></li>
+      </ol>
+      <div class="code-block">
+        <div class="cb-label">Add this line in your .env file</div>
+        <div class="cb-wrap">
+          <pre><code>ANTHROPIC_API_KEY=<span class="cp">sk-ant-api03-your-actual-key-here</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">10</div>
+      <div class="step-title">
+        <h3>Add WordPress App Password</h3>
+        <p>This lets the system publish blog posts and fix SEO issues on your site. You must create a special "App Password" — this is different from your normal WordPress login password.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-req">Required</span></div>
+    </div>
+    <div class="step-body">
+      <ol style="font-size:.88rem;color:var(--muted);padding-left:20px;line-height:2.3">
+        <li>Log in to your WordPress Admin at <strong>yourdomain.com/wp-admin</strong></li>
+        <li>In the left menu, click <strong>Users</strong> → then click on <strong>your username</strong></li>
+        <li>Scroll down until you see a section called <strong>"Application Passwords"</strong></li>
+        <li>In the box that says "New Application Password Name", type: <strong>Claude Auto SEO</strong></li>
+        <li>Click the button <strong>"Add New Application Password"</strong></li>
+        <li>WordPress shows you a password that looks like this: <code style="background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">AbCd EfGh IjKl MnOp QrSt UvWx</code></li>
+        <li><strong style="color:var(--red)">Copy it immediately — WordPress will never show it again!</strong></li>
+        <li>Paste it into your .env file</li>
+      </ol>
+      <div class="alert al-danger"><span class="alert-icon">🚫</span><div>Do NOT use your normal WordPress login password here. You must create an App Password specifically. The App Password has spaces in it — keep the spaces.</div></div>
+      <div class="code-block">
+        <div class="cb-label">Add these 3 lines to your .env file</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>WP_URL=<span class="cp">https://yoursite.com</span>
+WP_USERNAME=<span class="cp">your_wordpress_username</span>
+WP_APP_PASSWORD=<span class="cp">AbCd EfGh IjKl MnOp QrSt UvWx</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">11</div>
+      <div class="step-title">
+        <h3>Add Gmail Credentials for Daily Reports</h3>
+        <p>Every evening at 8 PM the system will email you showing everything it did that day, with links to verify each post. This needs a special Gmail App Password.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-req">Required</span></div>
+    </div>
+    <div class="step-body">
+      <ol style="font-size:.88rem;color:var(--muted);padding-left:20px;line-height:2.3">
+        <li>First, make sure Gmail 2-Step Verification is ON: go to <a href="https://myaccount.google.com/security" target="_blank"><strong>myaccount.google.com/security</strong></a> → scroll to "2-Step Verification" → turn it on if not already</li>
+        <li>Then go to <a href="https://myaccount.google.com/apppasswords" target="_blank"><strong>myaccount.google.com/apppasswords</strong></a></li>
+        <li>In the "App name" field type: <strong>Claude Auto SEO</strong></li>
+        <li>Click <strong>"Create"</strong></li>
+        <li>Google shows a 16-character password like: <code style="background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">abcd efgh ijkl mnop</code></li>
+        <li>Copy it and paste into your .env file</li>
+      </ol>
+      <div class="code-block">
+        <div class="cb-label">Add these 3 lines to your .env file</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>SMTP_USER=<span class="cp">your@gmail.com</span>
+SMTP_PASS=<span class="cp">abcd efgh ijkl mnop</span>
+NOTIFICATION_EMAIL=<span class="cp">you@yoursite.com</span></code></pre>
+        </div>
+      </div>
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>NOTIFICATION_EMAIL is where the daily report gets sent. You can use the same Gmail or any other email address.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">12</div>
+      <div class="step-title">
+        <h3>Add Social Media Credentials</h3>
+        <p>Optional — add the platforms you want. You can skip all of these now and add later.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-opt">Optional Now</span></div>
+    </div>
+    <div class="step-body">
+      <div class="plat-grid">
+        <div class="plat-card">
+          <div class="plat-name">📘📸 Facebook + Instagram</div>
+          <div class="plat-keys">
+            <code>META_ACCESS_TOKEN</code>
+            <code>FACEBOOK_PAGE_ID</code>
+            <code>INSTAGRAM_USER_ID</code>
+          </div>
+          <a href="https://developers.facebook.com" target="_blank">→ developers.facebook.com</a>
+        </div>
+        <div class="plat-card">
+          <div class="plat-name">🐦 Twitter / X</div>
+          <div class="plat-keys">
+            <code>TWITTER_API_KEY</code>
+            <code>TWITTER_API_SECRET</code>
+            <code>TWITTER_ACCESS_TOKEN</code>
+            <code>TWITTER_ACCESS_SECRET</code>
+          </div>
+          <a href="https://developer.twitter.com" target="_blank">→ developer.twitter.com</a>
+        </div>
+        <div class="plat-card">
+          <div class="plat-name">💼 LinkedIn</div>
+          <div class="plat-keys"><code>LINKEDIN_ACCESS_TOKEN</code></div>
+          <a href="https://linkedin.com/developers" target="_blank">→ linkedin.com/developers</a>
+        </div>
+        <div class="plat-card">
+          <div class="plat-name">📌 Pinterest</div>
+          <div class="plat-keys">
+            <code>PINTEREST_ACCESS_TOKEN</code>
+            <code>PINTEREST_BOARD_ID</code>
+          </div>
+          <a href="https://developers.pinterest.com" target="_blank">→ developers.pinterest.com</a>
+        </div>
+        <div class="plat-card">
+          <div class="plat-name">📍 Google My Business</div>
+          <div class="plat-keys">
+            <code>GOOGLE_GMB_ACCESS_TOKEN</code>
+            <code>GMB_LOCATION_ID</code>
+          </div>
+          <a href="#" style="color:var(--muted);font-size:.75rem">Run: python3 scripts/gmb_setup.py --auth</a>
+        </div>
+        <div class="plat-card">
+          <div class="plat-name">🖼️ Unsplash (Banner Backgrounds)</div>
+          <div class="plat-keys"><code>UNSPLASH_ACCESS_KEY</code></div>
+          <a href="https://unsplash.com/developers" target="_blank">→ Free at unsplash.com</a>
+        </div>
+      </div>
+      <div class="alert al-info"><span class="alert-icon">📖</span><div>Full step-by-step instructions for every social platform are in <strong>docs/SOCIAL-CREDENTIALS.md</strong></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 4: LOGO ───────────────────────────────── -->
+<div class="phase" id="phase4">
+  <div class="phase-header">
+    <div class="phase-badge ph-purple">🖼️</div>
+    <div class="phase-meta">
+      <h2>Phase 4 — Add Your Logo</h2>
+      <p>Your logo goes on every banner image generated for blog posts and social media</p>
+    </div>
+    <div class="phase-time">⏱ 1 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">13</div>
+      <div class="step-title">
+        <h3>Copy Your Logo to the Assets Folder</h3>
+        <p>Place your logo file in the correct location. The system will automatically overlay it on every generated banner image.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>Use a <strong>PNG file with transparent background</strong> for best results. Recommended minimum size: 300×100 pixels. If you don't add a logo, the system uses your website name as text instead.</div></div>
+      <div class="code-block">
+        <div class="cb-label">Easiest way — use your file manager to drag and drop</div>
+        <div class="cb-wrap">
+          <pre><code><span class="co"># Just drag and drop your logo PNG file into the 'assets' folder</span>
+<span class="co"># and rename it to logo.png</span>
+
+<span class="co"># Or use Terminal — Mac/Linux:</span>
+cp /path/to/your/<span class="cp">yourlogo.png</span> assets/logo.png
+
+<span class="co"># Windows Command Prompt:</span>
+copy C:\path\to\your\<span class="cp">yourlogo.png</span> assets\logo.png</code></pre>
+        </div>
+      </div>
+      <div class="verify"><div class="verify-title">The assets folder should now contain a file called logo.png</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 5: TESTING ───────────────────────────── -->
+<div class="phase" id="phase5">
+  <div class="phase-header">
+    <div class="phase-badge ph-teal">🧪</div>
+    <div class="phase-meta">
+      <h2>Phase 5 — Test Everything Works</h2>
+      <p>Run these tests one by one before starting automation. Fix any failures before continuing.</p>
+    </div>
+    <div class="phase-time">⏱ 5 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">14</div>
+      <div class="step-title">
+        <h3>Check Which Credentials Are Configured</h3>
+        <p>This shows a simple list of what is set up and what is missing.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-test">Test</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/setup_crons.py --check-credentials</code></pre>
+        </div>
+      </div>
+      <div class="verify">
+        <div class="verify-title">Good output looks like this — green ticks are ready, empty boxes are optional missing:</div>
+        <ul>
+          <li>Claude AI (content writing)</li>
+          <li>WordPress URL</li>
+          <li>WordPress username &amp; App Password</li>
+          <li>Email (daily reports)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">15</div>
+      <div class="step-title">
+        <h3>Test WordPress Connection</h3>
+        <p>Checks your WordPress credentials and scans the site for SEO issues. This confirms the connection works.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-test">Test</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/wp_seo_fixer.py --scan</code></pre>
+        </div>
+      </div>
+      <div class="verify"><div class="verify-title">Success — you will see a list of your WordPress posts with any SEO issues found next to each one.</div></div>
+      <div class="alert al-danger"><span class="alert-icon">❌</span><div><strong>If you see "401 Unauthorized":</strong> You used your regular WordPress login password instead of an App Password. Go back to Step 10 and create an App Password from WordPress Admin → Users → Your Profile → Application Passwords.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">16</div>
+      <div class="step-title">
+        <h3>Test Banner Image Creation</h3>
+        <p>Generates a test banner image. Check the output folder afterward to see the result.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-test">Test</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/image_generator.py --title "My Test Post Title" --keyword "seo tips" --type blog</code></pre>
+        </div>
+      </div>
+      <div class="verify"><div class="verify-title">Check the output/images/ folder — a banner image file should be there. Open it to see your logo, title, and brand colors applied.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">17</div>
+      <div class="step-title">
+        <h3>Preview Social Media Posts — No Real Posts Made</h3>
+        <p>Shows exactly what would be posted to each social platform without actually sending anything.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-test">Safe Preview</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/dm_scheduler.py --preview</code></pre>
+        </div>
+      </div>
+      <div class="verify"><div class="verify-title">You will see the content that would be posted on each platform. Nothing is actually posted in preview mode.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">18</div>
+      <div class="step-title">
+        <h3>Check Upcoming Festivals</h3>
+        <p>Shows all festivals in the next 30 days with the content that will be auto-posted at 1 AM.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-test">Preview</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code><span class="co"># See all upcoming festivals</span>
+python3 scripts/festival_poster.py --check-upcoming 30
+
+<span class="co"># Preview today's festival posts without actually posting</span>
+python3 scripts/festival_poster.py --preview</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">19</div>
+      <div class="step-title">
+        <h3>Test Your Daily Email Report</h3>
+        <p>Sends a test report to your inbox to confirm email is working.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-test">Test</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code><span class="co"># First — just print the report to screen (no email)</span>
+python3 scripts/daily_report.py --print-only
+
+<span class="co"># Then — send it to your email as a test</span>
+python3 scripts/daily_report.py --send-email</code></pre>
+        </div>
+      </div>
+      <div class="verify"><div class="verify-title">Check your email inbox AND your spam folder. The report email should arrive within 1 minute.</div></div>
+      <div class="alert al-danger"><span class="alert-icon">❌</span><div><strong>If email fails:</strong> You must use a Gmail App Password (16 characters), NOT your regular Gmail password. Also make sure 2-Step Verification is enabled in your Google account first.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">20</div>
+      <div class="step-title">
+        <h3>Run All Tests at Once</h3>
+        <p>Runs every module in safe preview mode and shows a PASS or FAIL result for each one.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-test">All Tests</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/setup_crons.py --test-all</code></pre>
+        </div>
+      </div>
+      <div class="alert al-success"><span class="alert-icon">✅</span><div><strong>If all tests pass</strong> — you are ready to start! Move to Phase 6.<br><strong>If any fail</strong> — the error message tells you exactly what is missing or wrong. Fix it and run again.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 6: WORDPRESS SEO ──────────────────────── -->
+<div class="phase" id="phase6">
+  <div class="phase-header">
+    <div class="phase-badge ph-red">🔧</div>
+    <div class="phase-meta">
+      <h2>Phase 6 — Auto-Fix Your WordPress SEO</h2>
+      <p>Scan your entire site and fix all SEO issues automatically in minutes</p>
+    </div>
+    <div class="phase-time">⏱ 5 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">21</div>
+      <div class="step-title">
+        <h3>Install the WordPress Plugin</h3>
+        <p>Upload one small file to your WordPress hosting. This lets the system update your SEO settings automatically.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <ol style="font-size:.88rem;color:var(--muted);padding-left:20px;line-height:2.3">
+        <li>In your project folder, find the file: <code style="background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">wordpress/claude-auto-seo-yoast-rest.php</code></li>
+        <li>Connect to your website hosting (via cPanel File Manager, or FTP)</li>
+        <li>Navigate to your WordPress files → <code style="background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">wp-content/mu-plugins/</code></li>
+        <li>If the <code style="background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">mu-plugins</code> folder does not exist, create it</li>
+        <li>Upload <code style="background:var(--cream);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">claude-auto-seo-yoast-rest.php</code> into that folder</li>
+        <li>Done — mu-plugins activate automatically, no further action needed</li>
+      </ol>
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>This small plugin exposes Yoast SEO fields via the WordPress REST API so the system can set meta titles, meta descriptions, and focus keywords on all your posts automatically.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">22</div>
+      <div class="step-title">
+        <h3>Scan Your Whole Site for SEO Issues</h3>
+        <p>The system reads every post and page on your WordPress site and lists all problems found.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/wp_seo_fixer.py --scan</code></pre>
+        </div>
+      </div>
+      <div class="verify">
+        <div class="verify-title">You will see a report like this:</div>
+        <ul>
+          <li>🔴 CRITICAL: Missing meta description on 8 posts — Auto-fixable</li>
+          <li>🟡 HIGH: Meta title too long on 3 pages — Auto-fixable</li>
+          <li>🟢 MEDIUM: 14 images missing alt text — Auto-fixable</li>
+          <li>Total issues: 25 | Auto-fixable: 21 | Manual review needed: 4</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">23</div>
+      <div class="step-title">
+        <h3>Preview All Fixes Before Applying</h3>
+        <p>See exactly what will change before anything happens. Completely safe — no changes are made.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/wp_seo_fixer.py --apply --dry-run</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">24</div>
+      <div class="step-title">
+        <h3>Apply All Fixes Automatically</h3>
+        <p>Fixes every auto-fixable SEO issue on your site. A backup is created first so you can undo everything.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/wp_seo_fixer.py --apply</code></pre>
+        </div>
+      </div>
+      <div class="alert al-success"><span class="alert-icon">✅</span><div>After fixing, a backup file is saved at <code style="background:rgba(0,184,148,.1);padding:1px 5px;border-radius:3px">data/wp-fix-backup-[date].json</code>. If anything looks wrong, run this to undo all changes: <code style="background:rgba(0,184,148,.1);padding:1px 5px;border-radius:3px">python3 scripts/wp_seo_fixer.py --rollback</code></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 7: FIRST BLOG POST ───────────────────── -->
+<div class="phase" id="phase7">
+  <div class="phase-header">
+    <div class="phase-badge ph-green">✍️</div>
+    <div class="phase-meta">
+      <h2>Phase 7 — Write &amp; Publish Your First Blog Post</h2>
+      <p>Test the full pipeline: research → write → publish to WordPress</p>
+    </div>
+    <div class="phase-time">⏱ 5 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">25</div>
+      <div class="step-title">
+        <h3>Start Claude Code</h3>
+        <p>Open the AI assistant from inside your project folder.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>claude</code></pre>
+        </div>
+      </div>
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>Make sure you are inside the <code style="background:rgba(9,132,227,.1);padding:1px 5px;border-radius:3px">claude-auto-seo</code> folder when you run this. A chat interface opens in your terminal. Type your commands there.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">26</div>
+      <div class="step-title">
+        <h3>Research and Write Your First Article</h3>
+        <p>Pick a keyword from your config/keywords.md file and run these two commands. Claude does the rest.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-label">Step 1 — Research the keyword (type this in Claude Code)</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>/research "<span class="cp">your keyword from keywords.md</span>"
+
+<span class="co"># Example: /research "wordpress seo guide 2026"</span></code></pre>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="cb-label">Step 2 — Write the full article (type this in Claude Code)</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>/write "<span class="cp">your keyword from keywords.md</span>"
+
+<span class="co"># Example: /write "wordpress seo guide 2026"</span></code></pre>
+        </div>
+      </div>
+      <div class="verify">
+        <div class="verify-title">After 1-2 minutes you should see:</div>
+        <ul>
+          <li>Article saved to: drafts/your-keyword-2026-03-16.md</li>
+          <li>SEO Score: 82/100 (or similar)</li>
+          <li>Word Count: 2,500+ words</li>
+          <li>Banner image created in output/images/</li>
+          <li>CTA section added with your contact details</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">27</div>
+      <div class="step-title">
+        <h3>Publish to WordPress as a Draft</h3>
+        <p>Sends the article to WordPress as a Draft so you can review it before it goes live.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-label">In Claude Code — replace the filename with your actual file</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>/publish-draft drafts/<span class="cp">your-article-filename.md</span></code></pre>
+        </div>
+      </div>
+      <div class="verify"><div class="verify-title">Success message shows a WordPress edit URL — click it to review your article in WordPress Admin before making it live.</div></div>
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>Log into your WordPress Admin and go to <strong>Posts → Drafts</strong>. Your article should be there with Yoast SEO already filled in — meta title, description, and focus keyword all set automatically.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">28</div>
+      <div class="step-title">
+        <h3>Publish to External Blogs (Medium, Reddit, Dev.to etc.)</h3>
+        <p>After your article is live on WordPress for 2-4 weeks, publish it to 40+ external platforms. Each includes a canonical link pointing back to your WordPress post.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-opt">After 2-4 weeks</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code><span class="co"># Publish to one platform:</span>
+/publish-external drafts/<span class="cp">your-article.md</span> medium
+
+<span class="co"># Publish to all configured platforms at once:</span>
+/publish-external drafts/<span class="cp">your-article.md</span> all</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 8: SOCIAL MEDIA ──────────────────────── -->
+<div class="phase" id="phase8">
+  <div class="phase-header">
+    <div class="phase-badge ph-purple">📱</div>
+    <div class="phase-meta">
+      <h2>Phase 8 — Test Social Media Posting</h2>
+      <p>Enable your platforms and send your first real social media post</p>
+    </div>
+    <div class="phase-time">⏱ 5 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">29</div>
+      <div class="step-title">
+        <h3>Enable Your Social Media Platforms</h3>
+        <p>Open the schedule settings file and switch on the platforms you want to use.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="alert al-info"><span class="alert-icon">💡</span><div>Open <strong>config/schedule.json</strong> in Notepad or any text editor. Find the platform name and change <code style="background:rgba(9,132,227,.1);padding:1px 5px;border-radius:3px">"enabled": false</code> to <code style="background:rgba(9,132,227,.1);padding:1px 5px;border-radius:3px">"enabled": true</code></div></div>
+      <div class="code-block">
+        <div class="cb-label">Example — enabling Instagram and Facebook</div>
+        <div class="cb-wrap">
+          <pre><code><span class="co">"social_media": {</span>
+  <span class="ck">"instagram"</span>: { <span class="cv">"enabled": true</span>,  "posts_per_day": 1 },
+  <span class="ck">"facebook"</span>:  { <span class="cv">"enabled": true</span>,  "posts_per_day": 1 },
+  <span class="ck">"linkedin"</span>:  { "enabled": false, "posts_per_day": 1 },
+  <span class="ck">"twitter"</span>:   { "enabled": false, "posts_per_day": 3 },
+  <span class="ck">"gmb"</span>:       { "enabled": false, "frequency": "every_3_days" }
+<span class="co">}</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">30</div>
+      <div class="step-title">
+        <h3>Send a Live Test Post to Facebook</h3>
+        <p>This sends one real post. Check your Facebook page after running to see the result.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/social_publisher.py \
+  --topic "<span class="cp">SEO Tips for Your Business</span>" \
+  --keyword "<span class="cp">seo tips</span>" \
+  --platforms facebook</code></pre>
+        </div>
+      </div>
+      <div class="verify"><div class="verify-title">Go to your Facebook business page — a new post should appear with content and a banner image including your logo.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">31</div>
+      <div class="step-title">
+        <h3>Test Festival Posting</h3>
+        <p>Post a real festival greeting to all enabled platforms right now.</p>
+      </div>
+      <div class="step-tag"><span class="tag tag-opt">Optional</span></div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code><span class="co"># See what's coming up in the next 30 days</span>
+python3 scripts/festival_poster.py --check-upcoming 30
+
+<span class="co"># Actually post today's festivals to all enabled platforms</span>
+python3 scripts/festival_poster.py --post-now</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 9: FULL AUTOMATION ───────────────────── -->
+<div class="phase" id="phase9">
+  <div class="phase-header">
+    <div class="phase-badge ph-green">⚡</div>
+    <div class="phase-meta">
+      <h2>Phase 9 — Start Full Automation</h2>
+      <p>One command installs all scheduled tasks. After this, everything runs by itself.</p>
+    </div>
+    <div class="phase-time">⏱ 2 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">32</div>
+      <div class="step-title">
+        <h3>Install All Cron Jobs (Mac and Linux)</h3>
+        <p>This installs the complete automation schedule on your computer so everything runs at the correct times each day.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>python3 scripts/setup_crons.py --install</code></pre>
+        </div>
+      </div>
+      <div class="verify">
+        <div class="verify-title">You should see confirmation that these jobs are installed:</div>
+        <ul>
+          <li>Festival posts at 1:00 AM every day</li>
+          <li>Daily blog post at 9:00 AM</li>
+          <li>Morning social media at ~9:30 AM</li>
+          <li>Afternoon social media at ~1:00 PM</li>
+          <li>Evening social media at ~7:00 PM</li>
+          <li>Daily email report at 8:00 PM</li>
+          <li>Weekly keyword check every Sunday 10:00 AM</li>
+        </ul>
+      </div>
+      <div class="code-block">
+        <div class="cb-label">Verify cron jobs are installed correctly</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code>crontab -l</code></pre>
+        </div>
+      </div>
+      <div class="alert al-warn"><span class="alert-icon">⚠️</span><div><strong>Windows users:</strong> Cron jobs don't work natively on Windows. Use the GitHub Actions method in Phase 10 — it's free, more reliable, and you don't need your computer on at all.</div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">33</div>
+      <div class="step-title">
+        <h3>Run Everything Right Now to Test</h3>
+        <p>Manually trigger all today's automation to confirm it all works end-to-end.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code><span class="co"># Write today's blog post right now</span>
+python3 scripts/scheduler.py --run-now
+
+<span class="co"># Post to all social media platforms right now</span>
+python3 scripts/dm_scheduler.py --run
+
+<span class="co"># Send today's report to your email</span>
+python3 scripts/daily_report.py --send-email</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 10: FREE HOSTING ─────────────────────── -->
+<div class="phase" id="phase10">
+  <div class="phase-header">
+    <div class="phase-badge ph-amber">☁️</div>
+    <div class="phase-meta">
+      <h2>Phase 10 — Free Cloud Hosting</h2>
+      <p>No need to keep your laptop on. Run everything free on GitHub's servers.</p>
+    </div>
+    <div class="phase-time">⏱ 10 min</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">34</div>
+      <div class="step-title">
+        <h3>Do I Need My Laptop On 24/7?</h3>
+        <p>The answer is NO — use GitHub Actions. It is free and runs on GitHub's computers.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="alert al-success"><span class="alert-icon">✅</span><div><strong>No, you do NOT need your laptop running 24/7.</strong> GitHub Actions is a free service that runs your code on GitHub's servers. Your computer can be switched off. The system still runs at exactly the right times every day.</div></div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="ic-head">🥇 GitHub Actions — FREE</div>
+          <p>Runs on GitHub's servers. 2,000 free minutes per month (more than enough). No credit card needed.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-head">🥈 Railway.app — $5/month</div>
+          <p>Simple cloud hosting. Very easy to set up. Good if you need more than GitHub's free tier.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-head">🥉 Render.com — Free</div>
+          <p>Free cron job hosting. Easy to configure. Good alternative to GitHub Actions.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-head">🥉 PythonAnywhere — Free/$5</div>
+          <p>Python-specific hosting. Beginner friendly. Free tier runs 1 scheduled task per day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">35</div>
+      <div class="step-title">
+        <h3>Set Up GitHub Actions Step by Step</h3>
+        <p>Follow these steps. Takes about 10 minutes and then your laptop can stay off forever.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <ol style="font-size:.88rem;color:var(--muted);padding-left:20px;line-height:2.5">
+        <li>Create a free account at <a href="https://github.com" target="_blank"><strong>github.com</strong></a></li>
+        <li>Click <strong>"New repository"</strong> → name it <strong>claude-auto-seo</strong> → set it to <strong>Private</strong></li>
+        <li>Upload all your project files into the repository <strong>(do NOT upload the .env file)</strong></li>
+        <li>Go to your repository → click <strong>Settings</strong> tab at the top</li>
+        <li>In the left sidebar click <strong>Secrets and variables</strong> → then <strong>Actions</strong></li>
+        <li>Click <strong>"New repository secret"</strong> for every line in your .env file — add each key and value one by one</li>
+        <li>Now copy the workflow file to the right location:</li>
+      </ol>
+      <div class="code-block">
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code><span class="co"># Create the GitHub Actions folder</span>
+mkdir -p .github/workflows
+
+<span class="co"># Copy the pre-built workflow file</span>
+cp scripts/github-actions-template.yml .github/workflows/automation.yml</code></pre>
+        </div>
+      </div>
+      <div class="alert al-danger"><span class="alert-icon">🔒</span><div><strong>NEVER upload your .env file to GitHub.</strong> It contains your passwords. Use GitHub Secrets instead (Settings → Secrets → Actions → add each key from .env separately).</div></div>
+      <div class="verify"><div class="verify-title">After uploading the workflow file: go to your GitHub repository → click the Actions tab at the top → you will see the automation workflow listed and running on a schedule.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE 11: DAILY REPORTS ────────────────────── -->
+<div class="phase" id="phase11" style="scroll-margin-top:56px">
+  <div class="phase-header">
+    <div class="phase-badge ph-teal">📊</div>
+    <div class="phase-meta">
+      <h2>Phase 11 — Your Daily Reports</h2>
+      <p>Every evening at 8 PM an email arrives. Here is what to look for.</p>
+    </div>
+    <div class="phase-time">⏱ 2 min/day</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">36</div>
+      <div class="step-title">
+        <h3>What Your Daily Email Looks Like</h3>
+        <p>Every action the system took that day, with URLs you can click to verify.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="email-preview">
+        <div class="ep-titlebar">
+          <div class="ep-dots">
+            <div class="ep-dot" style="background:#ff5f57"></div>
+            <div class="ep-dot" style="background:#ffbd2e"></div>
+            <div class="ep-dot" style="background:#28c840"></div>
+          </div>
+          <div class="ep-subj">📊 Daily SEO Report — YourSite.com — 2026-03-16</div>
+        </div>
+        <div class="ep-body">
+<span class="ep-green">📊 Daily SEO &amp; Digital Marketing Report</span>
+<span class="ep-dim">Site: YourSite.com  |  Date: 2026-03-16  |  Generated: 8:00 PM</span>
+<span class="ep-dim">─────────────────────────────────────────────────</span>
+
+<span class="ep-blue">✍️ Blog Posts Written</span>
+<span class="ep-green">  ✅ "Best SEO Tips for 2026" — Score: 82/100</span>
+     File: review-required/best-seo-tips-2026-03-16.md
+<span class="ep-amber">     ⚠️  Needs your review — then publish in WordPress</span>
+
+<span class="ep-blue">📱 Social Media Posts</span>
+<span class="ep-green">  ✅ Instagram — Post ID: 123456789</span>
+<span class="ep-green">  ✅ Facebook  — URL: facebook.com/posts/xxx (click to verify)</span>
+<span class="ep-green">  ✅ LinkedIn  — Posted successfully</span>
+
+<span class="ep-blue">🎊 Festival Posts</span>
+<span class="ep-green">  ✅ Holi 2026 — 5/5 platforms posted at 1:00 AM</span>
+
+<span class="ep-blue">🔧 WordPress SEO Fixes Applied</span>
+<span class="ep-green">  ✅ 12 fixes: meta descriptions (8), image alt text (4)</span>
+     Backup saved: data/wp-fix-backup-20260316.json
+
+<span class="ep-blue">📈 Keyword Rankings This Week</span>
+<span class="ep-green">  ↑ "seo guide" moved from #14 to #11 (+3 positions)</span>
+<span class="ep-red">  ↓ "wordpress tips" moved from #8 to #11 (-3) — needs attention</span>
+
+<span class="ep-blue">📊 Today's Scorecard</span>
+     Total actions: 25  |  Success rate: 96%
+<span class="ep-amber">     ⚠️  Action needed: Review blog post in review-required/</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="snum">37</div>
+      <div class="step-title">
+        <h3>Your Daily 5-Minute Routine</h3>
+        <p>Once automation is running, this is all you need to do each day.</p>
+      </div>
+    </div>
+    <div class="step-body">
+      <ol style="font-size:.88rem;color:var(--muted);padding-left:20px;line-height:2.5">
+        <li><strong style="color:var(--ink)">Check your 8 PM email report</strong> — scan for any errors or action items highlighted in amber</li>
+        <li><strong style="color:var(--ink)">Review the blog post</strong> — open the file in <code style="background:var(--cream);padding:1px 5px;border-radius:3px;border:1px solid var(--border)">review-required/</code> folder — read it, approve it, then publish it live in WordPress</li>
+        <li><strong style="color:var(--ink)">Verify social posts</strong> — click the URLs in the report to confirm posts look good on each platform</li>
+        <li><strong style="color:var(--ink)">Monthly:</strong> Run keyword finder to find new quick-win keywords to push to page 1</li>
+      </ol>
+      <div class="code-block">
+        <div class="cb-label">Useful commands for monitoring</div>
+        <div class="cb-wrap">
+          <button class="copy-btn" onclick="doCopy(this)">Copy</button>
+          <pre><code><span class="co"># View today's report in the terminal</span>
+python3 scripts/daily_report.py --print-only
+
+<span class="co"># Find keywords on pages 2-6 to push to page 1</span>
+python3 scripts/keyword_finder.py --domain <span class="cp">yoursite.com</span> --update-config
+
+<span class="co"># Check cron jobs are still running</span>
+python3 scripts/setup_crons.py --status</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── AUTOMATION SCHEDULE ────────────────────────── -->
+<div class="section" id="schedule">
+  <div class="section-tag">Reference</div>
+  <h2>Complete Automation Schedule</h2>
+  <p class="section-desc">Everything that happens automatically every day after setup is complete.</p>
+
+  <table class="sched-table">
+    <tr>
+      <th>Time</th>
+      <th>What Happens</th>
+      <th>Script</th>
+    </tr>
+    <tr>
+      <td class="sched-time">1:00 AM</td>
+      <td>🎊 <strong>Festival Posts</strong> — checks today's festivals (India, USA, UK, Africa, Europe). If a festival, generates unique content + coloured banner with your logo → posts to all enabled social platforms. Multiple festivals = multiple posts with 15-minute spacing.</td>
+      <td class="sched-script"><code>festival_poster.py</code></td>
+    </tr>
+    <tr>
+      <td class="sched-time">9:00 AM</td>
+      <td>✍️ <strong>Daily Blog Post</strong> — takes next keyword from your queue → researches competitors → writes 2,500+ word article → adds your CTA (email, phone, website) → generates blog banner with logo → saves to review-required/ for your approval</td>
+      <td class="sched-script"><code>scheduler.py</code></td>
+    </tr>
+    <tr>
+      <td class="sched-time">~9:30 AM</td>
+      <td>📱 <strong>Morning Social Posts</strong> — posts to Instagram, Facebook, LinkedIn, Twitter, Pinterest, and Google My Business. Each platform gets its own content, tone, hashtags, and correctly-sized banner. CTA with your contact details included.</td>
+      <td class="sched-script"><code>dm_scheduler.py</code></td>
+    </tr>
+    <tr>
+      <td class="sched-time">~1:00 PM</td>
+      <td>📱 <strong>Afternoon Social Posts</strong> — different keyword and different content from morning. Twitter posts again (3× total per day). GMB posts every 3 days at a random time.</td>
+      <td class="sched-script"><code>dm_scheduler.py</code></td>
+    </tr>
+    <tr>
+      <td class="sched-time">~7:00 PM</td>
+      <td>📱 <strong>Evening Social Posts</strong> — final post of the day. Different topic from morning and afternoon. All platforms post again.</td>
+      <td class="sched-script"><code>dm_scheduler.py</code></td>
+    </tr>
+    <tr>
+      <td class="sched-time">8:00 PM</td>
+      <td>📊 <strong>Daily Email Report</strong> — compiles everything done today and emails you: articles written with file paths, social post IDs and URLs, WordPress fixes with backup location, keyword ranking changes, any errors, and action items requiring your review.</td>
+      <td class="sched-script"><code>daily_report.py</code></td>
+    </tr>
+    <tr>
+      <td class="sched-time">Sun 10 AM</td>
+      <td>📈 <strong>Weekly Keyword Check</strong> — checks all tracked keyword positions, finds new page 2-6 quick wins, detects content decay on existing posts, monitors competitor activity for new content.</td>
+      <td class="sched-script"><code>keyword_finder.py</code></td>
+    </tr>
+  </table>
+</div>
+
+<!-- ── QUICK COMMANDS ──────────────────────────────── -->
+<div class="section" id="commands">
+  <div class="section-tag">Reference</div>
+  <h2>Quick Command Reference</h2>
+  <p class="section-desc">Useful commands to run manually anytime.</p>
+
+  <div class="qref-grid">
+    <div class="qref-card">
+      <h4>🔍 SEO (in Claude Code)</h4>
+      <p><code>/seo audit https://yoursite.com</code></p>
+      <p><code>/wp-seo-fix scan https://yoursite.com</code></p>
+      <p><code>/wp-seo-fix apply</code></p>
+      <p><code>/seo report https://yoursite.com</code></p>
+      <p><code>/seo weekly-digest</code></p>
+    </div>
+    <div class="qref-card">
+      <h4>✍️ Content (in Claude Code)</h4>
+      <p><code>/research "keyword"</code></p>
+      <p><code>/write "keyword"</code></p>
+      <p><code>/publish-draft drafts/file.md</code></p>
+      <p><code>/publish-external file.md all</code></p>
+      <p><code>/content calendar</code></p>
+    </div>
+    <div class="qref-card">
+      <h4>📱 Social & Festivals</h4>
+      <p><code>python3 scripts/dm_scheduler.py --run</code></p>
+      <p><code>python3 scripts/festival_poster.py --post-now</code></p>
+      <p><code>python3 scripts/festival_poster.py --check-upcoming 30</code></p>
+      <p><code>python3 scripts/social_publisher.py --platforms facebook</code></p>
+    </div>
+    <div class="qref-card">
+      <h4>📊 Reports & Keywords</h4>
+      <p><code>python3 scripts/daily_report.py --send-email</code></p>
+      <p><code>python3 scripts/daily_report.py --print-only</code></p>
+      <p><code>python3 scripts/keyword_finder.py --quick-wins-only</code></p>
+      <p><code>python3 scripts/seo_monitors.py --all</code></p>
+    </div>
+    <div class="qref-card">
+      <h4>🔧 WordPress Fixes</h4>
+      <p><code>python3 scripts/wp_seo_fixer.py --scan</code></p>
+      <p><code>python3 scripts/wp_seo_fixer.py --apply --dry-run</code></p>
+      <p><code>python3 scripts/wp_seo_fixer.py --apply</code></p>
+      <p><code>python3 scripts/wp_seo_fixer.py --rollback</code></p>
+    </div>
+    <div class="qref-card">
+      <h4>⚙️ Automation Control</h4>
+      <p><code>python3 scripts/setup_crons.py --install</code></p>
+      <p><code>python3 scripts/setup_crons.py --status</code></p>
+      <p><code>python3 scripts/setup_crons.py --test-all</code></p>
+      <p><code>python3 scripts/setup_crons.py --remove</code></p>
+    </div>
+  </div>
+</div>
+
+</div><!-- end wrap -->
+
+<!-- ═══════════════════════════════════════════ FOOTER ══ -->
+<footer>
+  <p><strong>Claude Auto SEO + Digital Marketing</strong> — Open Source · MIT License</p>
+  <p style="margin-top:8px">Full docs: README.md &nbsp;·&nbsp; docs/COMMANDS.md &nbsp;·&nbsp; docs/SOCIAL-CREDENTIALS.md &nbsp;·&nbsp; docs/CLOUD-HOSTING-GUIDE.md</p>
+</footer>
+
+<a class="back-top" href="#" title="Back to top" aria-label="Back to top">↑</a>
+
+<script>
+function doCopy(btn) {
+  const code = btn.closest('.cb-wrap').querySelector('pre').innerText;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code).then(() => flash(btn));
+  } else {
+    const t = document.createElement('textarea');
+    t.value = code; document.body.appendChild(t);
+    t.select(); document.execCommand('copy');
+    document.body.removeChild(t); flash(btn);
+  }
+}
+function flash(btn) {
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+# Claude Auto SEO — .gitignore
+
+# ── Credentials & Secrets ──────────────────────────────
+.env
+config/google-service-account.json
+config/credentials.json
+*.pem
+*.key
+
+# ── Generated Content (don't commit your drafts) ───────
+drafts/
+rewrites/
+published/
+topics/
+research/
+output/
+reports/
+audits/
+data/rankings-history.json
+data/dataforseo-cache/
+data/analytics-cache/
+
+# ── Python ─────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Node ───────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+.npm
+
+# ── OS ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ── IDE ────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── Logs ───────────────────────────────────────────────
+*.log
+logs/
+
+# ── Temp ───────────────────────────────────────────────
+tmp/
+temp/
+.cache/
+
+# ── Screenshots (large files) ──────────────────────────
+screenshots/*.png
+screenshots/*.jpg
+screenshots/*.gif
+
+# ── PDF outputs ────────────────────────────────────────
+*.pdf
+
+# Keep directory structure
+!drafts/.gitkeep
+!rewrites/.gitkeep
+!published/.gitkeep
+!topics/.gitkeep
+!research/.gitkeep
+!output/.gitkeep
+!reports/.gitkeep
+!audits/.gitkeep
+!data/.gitkeep

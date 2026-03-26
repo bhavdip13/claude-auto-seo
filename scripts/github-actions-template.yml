@@ -1,0 +1,146 @@
+# Claude Auto SEO — GitHub Actions Automation
+# This file runs ALL automation on GitHub's FREE servers
+# NO laptop needed 24/7!
+#
+# SETUP:
+# 1. Push this project to GitHub
+# 2. Go to: Repo → Settings → Secrets and variables → Actions
+# 3. Add all your .env values as Repository Secrets
+# 4. Push this file to .github/workflows/automation.yml
+# 5. Done! Check Repo → Actions tab to see runs
+
+name: Claude Auto SEO — Full Automation
+
+on:
+  schedule:
+    - cron: '0 1 * * *'    # Festival posts at 1 AM UTC
+    - cron: '0 9 * * *'    # Blog post at 9 AM UTC
+    - cron: '30 9 * * *'   # Social media morning 9:30 AM UTC
+    - cron: '0 13 * * *'   # Social media afternoon 1 PM UTC
+    - cron: '0 19 * * *'   # Social media evening 7 PM UTC
+    - cron: '0 20 * * *'   # Daily email report 8 PM UTC
+    - cron: '0 10 * * 0'   # Weekly keyword check Sunday 10 AM UTC
+  workflow_dispatch:        # Allow manual trigger from GitHub UI
+
+env:
+  # Site config
+  SITE_NAME: ${{ secrets.SITE_NAME }}
+  WP_URL: ${{ secrets.WP_URL }}
+  WP_USERNAME: ${{ secrets.WP_USERNAME }}
+  WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+  # Content
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  # Social media
+  META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+  FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+  INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+  TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+  TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+  TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+  TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+  LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+  PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+  PINTEREST_BOARD_ID: ${{ secrets.PINTEREST_BOARD_ID }}
+  GOOGLE_GMB_ACCESS_TOKEN: ${{ secrets.GOOGLE_GMB_ACCESS_TOKEN }}
+  GMB_LOCATION_ID: ${{ secrets.GMB_LOCATION_ID }}
+  # Email reports
+  SMTP_USER: ${{ secrets.SMTP_USER }}
+  SMTP_PASS: ${{ secrets.SMTP_PASS }}
+  NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
+  # Analytics
+  DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+  DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+  UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+
+jobs:
+
+  # ── 1 AM: Festival Posts ───────────────────────────────────────────────────
+  festival-posts:
+    runs-on: ubuntu-latest
+    if: github.event.schedule == '0 1 * * *' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with: { python-version: '3.11' }
+      - run: pip install -r requirements.txt -q
+      - name: Post festival content
+        run: python3 scripts/festival_poster.py --post-now
+      - name: Upload logs
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: festival-logs-${{ github.run_number }}
+          path: data/festival-log.json
+
+  # ── 9 AM: Daily Blog Post ──────────────────────────────────────────────────
+  daily-blog:
+    runs-on: ubuntu-latest
+    if: github.event.schedule == '0 9 * * *' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with: { python-version: '3.11' }
+      - run: pip install -r requirements.txt -q
+      - name: Write daily blog post
+        run: python3 scripts/scheduler.py --run-now
+      - name: Commit generated content
+        run: |
+          git config --global user.email "bot@claude-auto-seo.com"
+          git config --global user.name "Claude Auto SEO Bot"
+          git add drafts/ review-required/ research/ -f 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "Auto: Blog post $(date +%Y-%m-%d)"
+          git push 2>/dev/null || true
+
+  # ── 9:30 AM + 1 PM + 7 PM: Social Media ──────────────────────────────────
+  social-media:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.schedule == '30 9 * * *' ||
+      github.event.schedule == '0 13 * * *' ||
+      github.event.schedule == '0 19 * * *' ||
+      github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with: { python-version: '3.11' }
+      - run: pip install -r requirements.txt -q
+      - name: Run social media posts
+        run: python3 scripts/dm_scheduler.py --run
+      - name: Upload social log
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: social-logs-${{ github.run_number }}
+          path: data/social-publish-log.json
+
+  # ── 8 PM: Daily Email Report ───────────────────────────────────────────────
+  daily-report:
+    runs-on: ubuntu-latest
+    if: github.event.schedule == '0 20 * * *' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with: { python-version: '3.11' }
+      - run: pip install -r requirements.txt -q
+      - name: Generate and send daily report
+        run: python3 scripts/daily_report.py --send-email
+      - name: Save report artifact
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: daily-report-${{ github.run_number }}
+          path: reports/daily-report-*.md
+
+  # ── Sunday 10 AM: Weekly Keyword Check ────────────────────────────────────
+  weekly-keywords:
+    runs-on: ubuntu-latest
+    if: github.event.schedule == '0 10 * * 0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with: { python-version: '3.11' }
+      - run: pip install -r requirements.txt -q
+      - name: Check keyword rankings
+        run: python3 scripts/keyword_finder.py --quick-wins-only
+      - name: Run SEO monitors
+        run: python3 scripts/seo_monitors.py --all

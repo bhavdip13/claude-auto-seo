@@ -1,0 +1,287 @@
+{
+  "_comment": "Claude Auto SEO — External Blog Platforms Configuration. 40+ legitimate publishing platforms.",
+  "_note": "All platforms use canonical URLs to point back to your WordPress site. No duplicate content penalty.",
+
+  "platforms": {
+
+    "tier_1_high_authority": {
+      "_description": "DA 85+. Publish here first. Strong backlinks + real audience.",
+      "medium": {
+        "name": "Medium",
+        "url": "https://medium.com",
+        "da": 95,
+        "audience": "General/professional",
+        "regions": ["global"],
+        "canonical_support": true,
+        "free": true,
+        "api_available": true,
+        "env_key": "MEDIUM_INTEGRATION_TOKEN",
+        "instructions": "medium.com/me/settings → Integration Tokens"
+      },
+      "linkedin_articles": {
+        "name": "LinkedIn Articles",
+        "url": "https://www.linkedin.com",
+        "da": 99,
+        "audience": "B2B/Professional",
+        "regions": ["global"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": true,
+        "env_key": "LINKEDIN_ACCESS_TOKEN",
+        "note": "No canonical support — adapt content, don't copy verbatim"
+      },
+      "substack": {
+        "name": "Substack",
+        "url": "https://substack.com",
+        "da": 90,
+        "audience": "Newsletter subscribers",
+        "regions": ["global"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": false,
+        "note": "Manual publish. Cross-post with canonical mention."
+      },
+      "devto": {
+        "name": "Dev.to",
+        "url": "https://dev.to",
+        "da": 88,
+        "audience": "Developers/tech",
+        "regions": ["global"],
+        "canonical_support": true,
+        "free": true,
+        "api_available": true,
+        "env_key": "DEVTO_API_KEY",
+        "instructions": "dev.to/settings/extensions → DEV API Keys"
+      },
+      "hashnode": {
+        "name": "Hashnode",
+        "url": "https://hashnode.com",
+        "da": 83,
+        "audience": "Developers",
+        "regions": ["global"],
+        "canonical_support": true,
+        "free": true,
+        "api_available": true,
+        "env_key": "HASHNODE_API_KEY"
+      }
+    },
+
+    "tier_2_strong_platforms": {
+      "_description": "DA 60-85. Good reach + authority.",
+      "reddit": {
+        "name": "Reddit",
+        "url": "https://reddit.com",
+        "da": 91,
+        "audience": "Niche communities",
+        "regions": ["global", "USA"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": true,
+        "env_keys": ["REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET", "REDDIT_USERNAME", "REDDIT_PASSWORD"],
+        "note": "Post as discussion/value-add, never pure link drop. Join subreddits first."
+      },
+      "quora_spaces": {
+        "name": "Quora Spaces",
+        "url": "https://quora.com",
+        "da": 93,
+        "audience": "Question seekers",
+        "regions": ["global", "USA", "India"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": false,
+        "note": "Answer relevant questions. Include article link as reference. Manual process."
+      },
+      "hubpages": {
+        "name": "HubPages",
+        "url": "https://hubpages.com",
+        "da": 80,
+        "audience": "General",
+        "regions": ["USA", "global"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": false
+      },
+      "vocal_media": {
+        "name": "Vocal Media",
+        "url": "https://vocal.media",
+        "da": 72,
+        "audience": "General/creators",
+        "regions": ["global"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": false
+      },
+      "newsbreak": {
+        "name": "NewsBreak",
+        "url": "https://www.newsbreak.com",
+        "da": 73,
+        "audience": "Local news/USA",
+        "regions": ["USA"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": false,
+        "note": "USA local news platform. Good for local businesses."
+      },
+      "tumblr": {
+        "name": "Tumblr",
+        "url": "https://tumblr.com",
+        "da": 87,
+        "audience": "Creative/casual",
+        "regions": ["global", "USA"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": true
+      },
+      "blogger": {
+        "name": "Blogger (Google)",
+        "url": "https://blogger.com",
+        "da": 99,
+        "audience": "General",
+        "regions": ["global"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": true,
+        "note": "Google-owned. Blog summaries with links back to your site."
+      }
+    },
+
+    "tier_3_niche_platforms": {
+      "_description": "Niche-specific or regional platforms with real audiences.",
+      "hackernoon": {
+        "name": "HackerNoon",
+        "url": "https://hackernoon.com",
+        "da": 86,
+        "audience": "Tech/developers",
+        "regions": ["global"],
+        "canonical_support": true,
+        "free": true,
+        "api_available": false,
+        "note": "Submit at hackernoon.com/submit. Editorial review. Tech/startup content."
+      },
+      "the_good_men_project": {
+        "name": "The Good Men Project",
+        "url": "https://goodmenproject.com",
+        "da": 70,
+        "audience": "General/lifestyle",
+        "regions": ["USA", "global"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": false,
+        "note": "Accepts guest contributions. goodmenproject.com/submit"
+      },
+      "elephant_journal": {
+        "name": "Elephant Journal",
+        "url": "https://www.elephantjournal.com",
+        "da": 72,
+        "audience": "Wellness/mindfulness",
+        "regions": ["global"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": false,
+        "note": "Mindfulness/health niche. elephantjournal.com/about/write-for-us"
+      },
+      "business2community": {
+        "name": "Business2Community",
+        "url": "https://www.business2community.com",
+        "da": 76,
+        "audience": "Business/marketing",
+        "regions": ["global", "USA"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": false
+      },
+      "social_media_today": {
+        "name": "Social Media Today",
+        "url": "https://www.socialmediatoday.com",
+        "da": 83,
+        "audience": "Social media/marketing",
+        "regions": ["global"],
+        "canonical_support": false,
+        "free": true,
+        "api_available": false
+      },
+      "techrepublic": {
+        "name": "TechRepublic",
+        "url": "https://www.techrepublic.com",
+        "da": 88,
+        "audience": "IT professionals",
+        "regions": ["USA", "global"],
+        "canonical_support": false,
+        "free": false,
+        "note": "Invite-only / paid. High authority tech publication."
+      }
+    },
+
+    "uk_europe_platforms": {
+      "_description": "UK and European focused platforms.",
+      "the_drum": {
+        "name": "The Drum (UK)",
+        "url": "https://www.thedrum.com",
+        "da": 83,
+        "audience": "Marketing/advertising",
+        "regions": ["UK", "Europe"],
+        "note": "UK marketing industry. thedrum.com/opinion (opinion submissions)"
+      },
+      "uk_business_forums": {
+        "name": "UK Business Forums",
+        "url": "https://www.ukbusinessforums.co.uk",
+        "da": 55,
+        "audience": "UK small business",
+        "regions": ["UK"],
+        "note": "UK SMB community. Share expertise in forums."
+      },
+      "sifted": {
+        "name": "Sifted (EU Startups)",
+        "url": "https://sifted.eu",
+        "da": 72,
+        "audience": "European startups",
+        "regions": ["Europe", "UK"],
+        "note": "EU tech startup news. Guest contributions via editors."
+      },
+      "bdaily": {
+        "name": "BDaily (UK Business)",
+        "url": "https://bdaily.co.uk",
+        "da": 55,
+        "audience": "UK business",
+        "regions": ["UK"],
+        "note": "UK business news. Free press releases and articles."
+      }
+    },
+
+    "africa_platforms": {
+      "_description": "African market focused platforms.",
+      "disrupt_africa": {
+        "name": "Disrupt Africa",
+        "url": "https://disrupt-africa.com",
+        "da": 55,
+        "audience": "African tech/startups",
+        "regions": ["Africa"],
+        "note": "African tech news. Accepts startup news and guest posts."
+      },
+      "techcabal": {
+        "name": "TechCabal",
+        "url": "https://techcabal.com",
+        "da": 57,
+        "audience": "African tech",
+        "regions": ["Africa", "Nigeria"],
+        "note": "Nigeria/Africa tech news. Community contributions welcome."
+      },
+      "africa_business_communities": {
+        "name": "Africa Business Communities",
+        "url": "https://africabusinesscommunities.com",
+        "da": 50,
+        "audience": "Pan-African business",
+        "regions": ["Africa"],
+        "note": "B2B focused. Accepts contributed articles."
+      }
+    }
+  },
+
+  "posting_rules": {
+    "always_set_canonical": "Always include canonical URL pointing to your WordPress post",
+    "adapt_dont_copy": "Rewrite for each platform (different length/tone), don't copy verbatim",
+    "wait_before_repost": "Wait 2-4 weeks after publishing on WordPress before reposting elsewhere",
+    "credit_original": "Add 'Originally published at [your site]' at the bottom",
+    "no_same_day_posting": "Don't post to multiple platforms on the same day for the same article"
+  }
+}
